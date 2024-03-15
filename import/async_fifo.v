@@ -8,7 +8,7 @@ module async_fifo #(
     input rd_clk,
     input rd_rstn,
     input rd_en,
-    output reg [DATA_WIDTH-1:0] rd_data,
+    output [DATA_WIDTH-1:0] rd_data,
     
     input wr_clk,
     input wr_rstn,
@@ -72,6 +72,36 @@ assign almost_full = (wgap <= ALMOST_FULL_MARGIN);
 assign rgap = wr_ptr_b_2rd_reg2 - rd_ptr;
 assign almost_empty = (rgap <= ALMOST_EMPTY_MARGIN);
 
+
+//fifo read
+always @(posedge rd_clk or negedge rd_rstn) begin
+    if(!rd_rstn) begin
+        rd_ptr <= 0;
+    end else if (rd_en && !empty) begin
+        rd_ptr <= rd_ptr + 1;
+    end
+end
+
+//fifo write
+always @(posedge wr_clk or negedge wr_rstn) begin
+    if(!wr_rstn) begin
+        wr_ptr <= 0;
+    end else if (wr_en && !full) begin
+        wr_ptr <= wr_ptr + 1;
+    end
+end
+
+//fifo read data
+assign rd_data = mem[rd_ptr];
+
+//fifo write data
+always @(posedge wr_clk or negedge wr_rstn) begin
+    if (!wr_rstn) begin
+        mem[wr_ptr] <= 0;
+    end else if (wr_en && !full) begin
+        mem[wr_ptr] <= wr_data;
+    end
+end
 
 
 endmodule
