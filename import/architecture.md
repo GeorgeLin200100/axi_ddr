@@ -4,7 +4,7 @@
                     |               |
                     \/              |
                 ddr_axi_read--->ddr_rd_fifo        
--                   /\              
+                    /\              
                     |                 
                     |       
                     \/      
@@ -16,7 +16,7 @@
                     |               |
                     \/              \/
                 ddr_axi_write<---ddr_wr_fifo        
--                   /\              
+                    /\              
                     |                 
                     |       
                     \/      
