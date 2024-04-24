@@ -3,7 +3,8 @@
 module ddr_fifo2out #(
     parameter DATA_WIDTH = 64,
     parameter ADDR_WIDTH = 29,
-    parameter BURST_LEN_WIDTH = 8
+    parameter BURST_LEN_WIDTH = 8,
+    parameter NUM_BURST_WIDTH = 8
 )
 (
     input clk,
@@ -28,6 +29,7 @@ module ddr_fifo2out #(
     //DDR AXI READ MODULE
     output rd_start,
     output [BURST_LEN_WIDTH - 1 : 0] rd_burst_len,
+    output [NUM_BURST_WIDTH - 1 : 0] rd_num_burst,
     output [ADDR_WIDTH - 1 : 0] rd_start_addr,
     input rd_ready,
     input rd_done,
@@ -35,6 +37,7 @@ module ddr_fifo2out #(
     //DDR AXI WRITE MODULE
     output wr_start,
     output [BURST_LEN_WIDTH - 1 : 0] wr_burst_len,
+    output [NUM_BURST_WIDTH - 1 : 0] wr_num_burst,
     output [ADDR_WIDTH - 1 : 0] wr_start_addr,
     input wr_ready,
     input wr_done,
@@ -44,6 +47,7 @@ module ddr_fifo2out #(
     input ui_rw, //0:read, 1:write
     input [ADDR_WIDTH - 1 : 0] ui_addr,
     input [DATA_WIDTH - 1 : 0] ui_data,
+    
 );
 
 endmodule

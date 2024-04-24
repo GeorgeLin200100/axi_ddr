@@ -3,7 +3,8 @@
 module ddr_axi_write #(
     parameter DATA_WIDTH = 64,
     parameter ADDR_WIDTH = 29,
-    parameter BURST_LEN_WIDTH = 8
+    parameter BURST_LEN_WIDTH = 8,
+    parameter NUM_BURST_WIDTH = 8  
 )
 (
     input ACLK,
@@ -12,6 +13,7 @@ module ddr_axi_write #(
     //UI WR FIFO
     input wr_start,
     input [BURST_LEN_WIDTH - 1 : 0] wr_burst_len,
+    input [NUM_BURST_WIDTH - 1 : 0] wr_num_burst, // how many bursts for the single write command
     input [ADDR_WIDTH - 1 : 0] wr_start_addr,
     output wr_ready, //idle, wait to write
     input [DATA_WIDTH - 1 : 0] wr_fifo_rd_data,
